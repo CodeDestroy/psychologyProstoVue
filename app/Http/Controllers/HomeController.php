@@ -43,7 +43,7 @@ class HomeController extends Controller
 
     public function documents()
     {
-        return view('documents');
+        return view('legal');
     }
 
     
