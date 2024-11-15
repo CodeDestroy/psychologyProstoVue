@@ -10,9 +10,11 @@ class CourseRegistration extends Model
         'user_id',
         'shouldBeCheckedOut',
         'isAPPCP',
-        'isHealthyChild',
+        'isHealthyChildGk',
+        'isHealthyChildFranch',
+        'isLegalHealthyChildGK',
         'isStudent',
-        'isLegal',
+        'isLegalHealthyChildFranch',
         'managerCheckedOut',
     ];
 

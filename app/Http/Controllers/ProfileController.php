@@ -189,7 +189,7 @@ class ProfileController extends Controller
             'passportSeria' => 'nullable|string|size:4',
             'passpoortNumber' => 'nullable|string|size:6',
             
-            /* 'passportPhoto' => 'nullable|image|mimes:jpeg,png,jpg|max:10240', */
+            'studPhoto' => 'nullable|image|mimes:jpeg,png,jpg|max:10240',
         ]);
     
         if ($validator->fails()) {
@@ -201,14 +201,8 @@ class ProfileController extends Controller
         $phone = preg_replace('/[\s\-]/', '', $request->input('phone'));
         $postIndex = preg_replace('/[\s\-]/', '', $request->input('postIndex'));
         // Сохранение фотографий и формирование массива с путями к ним
-/*         $photoPaths = [];
-        if ($request->hasFile('passportPhoto')) {
-            foreach ($request->file('passportPhoto') as $photo) {
-                // Сохранение фото в папку "passport_photos"
-                $path = $photo->store('passport_photos', 'public');
-                $photoPaths[] = $path;
-            }
-        } */
+        $photoPaths = [];
+        
         // Обновление данных пользователя
         
         $shouldBeCheckedOut = false;
@@ -222,17 +216,33 @@ class ProfileController extends Controller
             'isLegal' => $request->input('isLegal'),
             'shouldBeCheckedOut' => $shouldBeCheckedOut
         ]); */
+        
         $courseRegistration = CourseRegistration::updateOrCreate(
             ['user_id' => $user->id],
             [
-                'isHealthyChild' => $request->input('isHealthyChild') ? $request->input('isHealthyChild') : false,
-                'isStudent' => $request->input('isStudent') ? $request->input('isStudent') : false,
-                'isAPPCP' => $request->input('isAPPCP') ? $request->input('isAPPCP') : false,
-                'isLegal' => $request->input('isLegal') ? $request->input('isLegal') : false,
+                'isLegalHealthyChildGK' => $request->input('isLegalHealthyChildGK') ? true : false,
+                'isStudent' => $request->input('isStudent') ? true : false,
+                'isAPPCP' => $request->input('isAPPCP') ? true : false,
+                'isHealthyChildGk' => $request->input('isHealthyChildGk') ? true : false,
+                'isHealthyChildFranch' => $request->input('isHealthyChildFranch') ? true : false,
+                'isLegalHealthyChildFranch' => $request->input('isLegalHealthyChildFranch') ? true : false,
                 'shouldBeCheckedOut' => $shouldBeCheckedOut
             ]
         );
 
+        if ($request->hasFile('studPhoto')) {
+            //foreach ($request->file('passportPhoto') as $photo) {
+                // Сохранение фото в папку "passport_photos"
+            $photo = $request->file('studPhoto');
+            $path = $photo->store('stud_photos', 'public');
+            /* $photoPaths[] = $path; */
+            CourseRegistrationDocuments::create([
+                'courseRegistrationId' => $courseRegistration->id, // ID регистрации курса
+                'type' => 'stud',
+                'file' => $path,
+            ]);
+            //}
+        }
         // Сохранение фотографий и формирование массива с путями к ним
         /* if ($request->hasFile('passportPhoto')) {
             foreach ($request->file('passportPhoto') as $photo) {
@@ -258,7 +268,7 @@ class ProfileController extends Controller
             'tgNickname' => $request->input('tgNickname'),
             'passportSeria' => $request->input('passportSeria'),
             'passpoortNumber' => $request->input('passpoortNumber'),
-            'hasSecondStep' => true,
+            'hasSecondStep' => 1,
         ]);
     
         return redirect('/');

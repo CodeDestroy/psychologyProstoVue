@@ -33,7 +33,7 @@
             <div class="sm:col-span-2">
                 <label for="phone" class="block text-sm/6 font-semibold text-gray-900">Телефон (через +7)</label>
                 <div class="relative mt-2 rounded-md shadow-sm">
-                    <input value="{{ Auth::user()->phone }}" required type="text" name="phone" id="phone" class="px-3.5 block w-full rounded-md border-0 py-1.5 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="(000)-00 00 000">
+                    <input value="{{ Auth::user()->phone }}" required type="text" name="phone" id="phone" class="px-3.5 block w-full rounded-md border-0 py-1.5 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="+7 (000)-00 00 000">
                 </div>
             </div>
             <div class="sm:col-span-2">
@@ -49,26 +49,77 @@
                     <input value="{{ Auth::user()->birthday }}" required type="date" name="birthDay" id="birthDay" class="px-3.5 block w-full rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="01.01.1901">
                 </div>
             </div>
-            <div class="sm:col-span-2">
+            <div id="isHealthyChildFranchDiv" class="sm:col-span-2">
                 <div class="relative mt-2 rounded-md shadow-sm items-center flex">
-                    <input value="true" onchange="showHealthyChild(this)" name="isHealthyChild" id="isHealthyChild" type="checkbox" class="accent-indigo-600 w-4 h-4 text-indigo-800 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                    <label for="isHealthyChild" class="my-2 ms-2.5 text-md font-medium text-black-900 dark:text-black-300">Являюсь работником франчайзинга «Здоровый ребёнок»</label>
+                    <input value="true" onchange="showHealthyChildFranch(this)" name="isHealthyChildFranch" id="isHealthyChildFranch" type="checkbox" class="accent-indigo-600 w-4 h-4 text-indigo-800 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <label for="isHealthyChildFranch" class="my-2 ms-2.5 text-md font-medium text-black-900 dark:text-black-300">Являюсь работником франчайзинга «Здоровый ребёнок»</label>
                 </div>
-            </div> 
-            <div id="oplataUrLicoDiv" class="sm:col-span-2" style="display: none">
+            </div>
+            <div id="isHealthyChildGKDiv" class="sm:col-span-2">
                 <div class="relative mt-2 rounded-md shadow-sm items-center flex">
-                    <input value="true" name="isLegal" id="isLegal" type="checkbox" class="accent-indigo-600 w-4 h-4 text-indigo-800 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                    <label for="isLegal" class="my-2 ms-2.5 text-md font-medium text-black-900 dark:text-black-300">Оплата осуществляется юридическим лицом</label>
+                    <input value="true" onchange="showHealthyChildGk(this)" name="isHealthyChildGk" id="isHealthyChildGK" type="checkbox" class="accent-indigo-600 w-4 h-4 text-indigo-800 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <label for="isHealthyChildGK" class="my-2 ms-2.5 text-md font-medium text-black-900 dark:text-black-300">Являюсь сотрудником ГК "Здоровый ребенок"</label>
+                </div>
+            </div>
+            <div id="isLegalHealthyChildGKDiv" class="sm:col-span-2" style="display: none">
+                <div class="relative mt-2 rounded-md shadow-sm items-center flex">
+                    <input value="true" name="isLegalHealthyChildGK" id="isLegalHealthyChildGK" type="checkbox" class="accent-indigo-600 w-4 h-4 text-indigo-800 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <label for="isLegalHealthyChildGK" class="my-2 ms-2.5 text-md font-medium text-black-900 dark:text-black-300">Оплата обучения осуществляется юридическим лицом</label>
                 </div>
             </div>       
             <script>
-                function showHealthyChild(event) {
+                function showHealthyChildGk(event) {
+                    const isLegalHealthyChildGKDiv = document.getElementById('isLegalHealthyChildGKDiv')
+                    const isHealthyChildFranchDiv = document.getElementById('isHealthyChildFranchDiv')
+                    
+                    /* const isHealthyChild = document.getElementById('isHealthyChild') */
+                    const isStudentDiv = document.getElementById('isStudentDiv')
+                    const workPlace = document.getElementById('workPlace')
+                    /*  */
+                    if (event.checked) {
+                        isLegalHealthyChildGKDiv.style.display = ''
+                        oplataUrLicoDiv.style.display = 'none'
+                        oplataUrLicoDiv.checked = false
+                        /* workPlaceDiv.style.display = '' */
+                        isStudentDiv.style.display = 'none'
+                        isHealthyChildFranchDiv.style.display = 'none'
+                        isStudentDiv.checked = false
+                        /* isHealthyChild.checked = false */
+                        workPlace.value = 'ГК "Здоровый ребенок"'
+                        console.log(workPlace)
+                    }
+                    else {
+                        isLegalHealthyChildGKDiv.style.display = 'none'
+                        oplataUrLicoDiv.style.display = ''
+                        
+                        isHealthyChildFranchDiv.style.display = ''
+                        /* workPlaceDiv.style.display = 'none' */
+                        isStudentDiv.style.display = ''
+                        document.getElementById('isLegalHealthyChildGK').checked = false
+                        /* isHealthyChild.checked = false */
+                        workPlace.value = ''
+                    }
+                }
+            </script> 
+            <div id="oplataUrLicoDiv" class="sm:col-span-2" style="display: none">
+                <div class="relative mt-2 rounded-md shadow-sm items-center flex">
+                    <input value="true" name="isLegalHealthyChildFranch" id="isLegal" type="checkbox" class="accent-indigo-600 w-4 h-4 text-indigo-800 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <label for="isLegal" class="my-2 ms-2.5 text-md font-medium text-black-900 dark:text-black-300">Оплата обучения осуществляется организацией</label>
+                </div>
+            </div>       
+            <script>
+                function showHealthyChildFranch(event) {
+                    const isHealthyChildGKDiv = document.getElementById('isHealthyChildGKDiv')
+                    const isLegalHealthyChildGKDiv = document.getElementById('isLegalHealthyChildGKDiv')
                     const oplataUrLicoDiv = document.getElementById('oplataUrLicoDiv')
                     const isHealthyChildDiv = document.getElementById('isHealthyChildDiv')
                     const isStudentDiv = document.getElementById('isStudentDiv')
                     const workPlace = document.getElementById('workPlaceDiv')
-                    console.log(workPlace)
+                    /* console.log(workPlace) */
                     if (event.checked) {
+                        isHealthyChildGKDiv.style.display = 'none'
+                        isLegalHealthyChildGKDiv.style.display = 'none'
+                        document.getElementById('isLegalHealthyChildGK').checked = false
                         oplataUrLicoDiv.style.display = ''
                         workPlaceDiv.style.display = ''
                         isStudentDiv.style.display = 'none'
@@ -76,6 +127,8 @@
                         workPlace.required = true
                     }
                     else {
+                        isHealthyChildGKDiv.style.display = ''
+                        isLegalHealthyChildGKDiv.style.display = ''
                         oplataUrLicoDiv.style.display = 'none'
                         oplataUrLicoDiv.checked = false
                         workPlaceDiv.style.display = 'none'
@@ -108,10 +161,44 @@
             </script>
             <div id="isStudentDiv" class="sm:col-span-2">
                 <div class="relative mt-2 rounded-md shadow-sm items-center flex">
-                    <input id="isStudent" value="true" type="checkbox" name="isStudent" class="accent-indigo-600 w-4 h-4 text-indigo-800 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <input id="isStudent" onchange="setStudent(this)" value="true" type="checkbox" name="isStudent" class="accent-indigo-600 w-4 h-4 text-indigo-800 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                     <label for="isStudent" class="my-2 ms-2.5 text-md font-medium text-black-900 dark:text-black-300">Являюсь студентом</label>
                 </div>
             </div> 
+            <script>
+                function setStudent(event) {
+                    const studPhotoDiv = document.getElementById('studPhotoDiv')
+                    const isHealthyChildGKDiv = document.getElementById('isHealthyChildGKDiv')
+                    const isHealthyChildGk = document.getElementById('isHealthyChildGK')
+                    
+                    const isHealthyChildFranchDiv = document.getElementById('isHealthyChildFranchDiv')
+                    const isHealthyChildFranch = document.getElementById('isHealthyChildFranch')
+
+                    const isAPPCPDiv = document.getElementById('isAPPCPDiv')
+                    const isAPPCP = document.getElementById('isAPPCP')
+
+                    const isLegal = document.getElementById('isLegal')
+                    const isLegalHealthyChildGK = document.getElementById('isLegalHealthyChildGK')
+
+                    if (event.checked) {
+                        isHealthyChildGKDiv.style.display = 'none'
+                        isHealthyChildFranchDiv.style.display = 'none'
+                        isAPPCPDiv.style.display = 'none'
+
+                        isAPPCP.checked = false
+                        isLegal.checked = false
+                        isLegalHealthyChildGK.checked = false
+
+                        studPhotoDiv.style.display = ''
+                    }
+                    else {
+                        studPhotoDiv.style.display = 'none'
+                        isHealthyChildGKDiv.style.display = ''
+                        isHealthyChildFranchDiv.style.display = ''
+                        isAPPCPDiv.style.display = ''
+                    }
+                }
+            </script>
             <div id="isAPPCPDiv" class="sm:col-span-2">
                 <div class="relative mt-2 rounded-md shadow-sm items-center flex">
                     <input id="isAPPCP" value="true" type="checkbox" name="isAPPCP" class="accent-indigo-600 w-4 h-4 text-indigo-800 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
@@ -119,9 +206,9 @@
                 </div>
             </div> 
             <div>
-                <label for="workPlace" class="block text-sm/6 font-semibold text-gray-900">Место работы (с ИНН)</label>
+                <label for="workPlace" class="block text-sm/6 font-semibold text-gray-900">Место работы</label>
                 <div class="mt-2.5">
-                    <input value="{{ Auth::user()->workPlace }}" required id="workPlace" type="text" name="workPlace" id="workPlace" autocomplete="workPlace" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                    <input value="{{ Auth::user()->workPlace }}" id="workPlace" type="text" name="workPlace" id="workPlace" autocomplete="workPlace" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
                 </div>
             </div>
             <div>
@@ -169,24 +256,24 @@
                     </div>
                 </div>
             </div>        
-            {{-- <div class="sm:col-span-full">
-                <label for="passportPhotoDiv" class="block text-sm/6 font-medium text-gray-900">Фотография или скан паспорта (2, 3, 5 страницы)</label>
+            <div style="display: none" class="sm:col-span-full" id='studPhotoDiv'>
+                <label for="studPhotoDiv" class="block text-sm/6 font-medium text-gray-900">Фотография или скан сутденческого билета</label>
                 <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
                     <div class="text-center">
                         <svg class="mx-auto size-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon">
                             <path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 0 1 2.25-2.25h16.5A2.25 2.25 0 0 1 22.5 6v12a2.25 2.25 0 0 1-2.25 2.25H3.75A2.25 2.25 0 0 1 1.5 18V6ZM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0 0 21 18v-1.94l-2.69-2.689a1.5 1.5 0 0 0-2.12 0l-.88.879.97.97a.75.75 0 1 1-1.06 1.06l-5.16-5.159a1.5 1.5 0 0 0-2.12 0L3 16.061Zm10.125-7.81a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0Z" clip-rule="evenodd" />
                         </svg>
                         <div class="mt-4 flex text-sm/6 text-gray-600">
-                            <label for="passportPhoto" class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
-                                <span>Загрузите файлы</span>
-                                <input multiple id="passportPhoto" name="passportPhoto" type="file" class="sr-only">
+                            <label for="studPhoto" class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
+                                <span>Загрузите изображение</span>
+                                <input id="studPhoto" name="studPhoto" type="file" class="sr-only">
                             </label>
-                            <p class="pl-1">или переместите файлы в это окно</p>
+                            <p class="pl-1">или переместите файл в это окно</p>
                         </div>
                         <p class="text-xs/5 text-gray-600">PNG, JPG до 10MB</p>
                     </div>
                 </div>
-            </div> --}}
+            </div>
 
             <div class="flex gap-x-4 sm:col-span-2">
                 <label class="inline-flex items-center mb-5 cursor-pointer">

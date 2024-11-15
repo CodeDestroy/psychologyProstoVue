@@ -11,7 +11,7 @@ Route::controller(App\Http\Controllers\HomeController::class)->group(function ()
     Route::get('/', 'index')->name('home');
     Route::get('/contacts', 'contacts')->name('contacts');
     Route::get('/about', 'about')->name('about');
-    Route::get('/docs', 'documents')->name('documents')
+    Route::get('/docs', 'documents')->name('documents');
 }); 
 /* Route::controller(App\Http\Controllers\HomeController::class)->group(function () {
     Route::get('/pay/{tier}', 'index')->name('home');

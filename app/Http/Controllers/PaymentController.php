@@ -56,11 +56,21 @@ class PaymentController extends Controller
         if ($user->hasSecondStep) {
             switch ($tier) {
                 case 'tier-base':
-                    /*  */
-                    if ( $courseRegistration->isAPPCP || ($courseRegistration->isHealthyChild && !$courseRegistration->isLegal) || $courseRegistration->isStudent) {
+                    /*  
+                    'isAPPCP',
+                    'isHealthyChildGk',
+                    'isHealthyChildFranch',
+                    'isLegalHealthyChildGK',
+                    'isStudent',
+                    'isLegalHealthyChildFranch',
+                    */
+                    if ( $courseRegistration->isAPPCP || 
+                        ($courseRegistration->isHealthyChildGk && !$courseRegistration->isLegalHealthyChildGK) || 
+                        $courseRegistration->isStudent ||
+                        ($courseRegistration->isHealthyChildFranch && !$courseRegistration->isLegalHealthyChildFranch)                        ) {
                         //Привилегия
                         return redirect('/payment/privilege/' . $freq . '/22000');
-                    } else if ($courseRegistration->isLegal) {
+                    } else if ($courseRegistration->isLegalHealthyChildFranch || $courseRegistration->isLegalHealthyChildGK) {
                         //Льгота
                         return redirect('/payment/enterprise/' . $freq );
                     }
@@ -71,10 +81,13 @@ class PaymentController extends Controller
                     break;
                 case 'tier-privilege':
                     //если льготный
-                    if ( $courseRegistration->isAPPCP || ($courseRegistration->isHealthyChild && !$courseRegistration->isLegal) || $courseRegistration->isStudent) {
+                    if ( $courseRegistration->isAPPCP || 
+                        ($courseRegistration->isHealthyChildGk && !$courseRegistration->isLegalHealthyChildGK) || 
+                        $courseRegistration->isStudent ||
+                        ($courseRegistration->isHealthyChildFranch && !$courseRegistration->isLegalHealthyChildFranch)                        ) {
                         //Привилегия
                         return redirect('/payment/privilege/' . $freq . '/22000');
-                    } else if ($courseRegistration->isLegal) {
+                    } else if ($courseRegistration->isLegalHealthyChildFranch || $courseRegistration->isLegalHealthyChildGK) {
                         //Льгота
                         return redirect('/payment/enterprise/' . $freq);
                     }
@@ -85,10 +98,13 @@ class PaymentController extends Controller
                     break;
                 case 'tier-enterprise':
                     //если льготный
-                    if ( $courseRegistration->isAPPCP || ($courseRegistration->isHealthyChild && !$courseRegistration->isLegal) || $courseRegistration->isStudent) {
+                    if ( $courseRegistration->isAPPCP || 
+                        ($courseRegistration->isHealthyChildGk && !$courseRegistration->isLegalHealthyChildGK) || 
+                        $courseRegistration->isStudent ||
+                        ($courseRegistration->isHealthyChildFranch && !$courseRegistration->isLegalHealthyChildFranch)                        ) {
                         //Привилегия
                         return redirect('/payment/privilege/' . $freq . '/22000');
-                    } else if ($courseRegistration->isLegal) {
+                    } else if ($courseRegistration->isLegalHealthyChildFranch || $courseRegistration->isLegalHealthyChildGK) {
                         //Льгота
                         return redirect('/payment/enterprise/' . $freq);
                     }
