@@ -1,7 +1,6 @@
 <template>
     <div class="relative border-b border-gray-200 pb-5 sm:pb-0">
         <div class="md:flex md:items-center md:justify-between">
-            <h3 class="text-base font-semibold leading-6 text-gray-900">Candidates</h3>
             <div class="mt-3 flex md:absolute md:right-0 md:top-3 md:mt-0">
                 <button  id="generate-pdf" type="button" class="ml-3 inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Скачать в PDF</button>
             </div>
