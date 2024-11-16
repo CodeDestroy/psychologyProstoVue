@@ -347,14 +347,30 @@
                         <div class="mt-4 flex text-sm/6 text-gray-600">
                             <label for="studPhoto" class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
                                 <span>Загрузите изображение</span>
-                                <input id="studPhoto" name="studPhoto" type="file" class="sr-only">
+                                <input onchange="selectFile(this)" id="studPhoto" name="studPhoto" type="file" class="sr-only">
                             </label>
                             <p class="pl-1">или переместите файл в это окно</p>
                         </div>
                         <p class="text-xs/5 text-gray-600">PNG, JPG до 10MB</p>
                     </div>
                 </div>
+                
             </div>
+
+            <div id="selected" class="animated hide sm:col-span-2">
+                <label for="file-selected" class="block text-sm/6 font-medium text-gray-900">Выбранный файл:</label> 
+                <div id="file-selected" class="text-lg/8 text-gray-600"></div>
+            </div>
+            
+            <script defer>
+                function selectFile(file) {
+                    const selected = document.getElementById('selected')
+                    selected.classList.remove('hide');
+                    selected.classList.add('visible');
+                    selected.classList.remove('hiding');
+                    document.getElementById('file-selected').innerHTML = file.files[0].name
+                }
+            </script>
 
             <div class="flex gap-x-4 sm:col-span-2">
                 <label class="inline-flex items-center mb-5 cursor-pointer">
