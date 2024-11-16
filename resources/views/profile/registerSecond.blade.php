@@ -51,20 +51,21 @@
             </div>
             <div id="isHealthyChildFranchDiv" class="sm:col-span-2">
                 <div class="relative mt-2 rounded-md shadow-sm items-center flex">
-                    <input value="true" onchange="showHealthyChildFranch(this)" name="isHealthyChildFranch" id="isHealthyChildFranch" type="checkbox" class="accent-indigo-600 w-4 h-4 text-indigo-800 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                    <label for="isHealthyChildFranch" class="my-2 ms-2.5 text-md font-medium text-black-900 dark:text-black-300">Являюсь работником франчайзинга «Здоровый ребёнок»</label>
+                    <input value="true" onchange="showHealthyChildFranch(this)" name="isHealthyChildFranch" id="isHealthyChildFranch" type="checkbox" class="h-4 w-4 rounded accent-purple-800 border-gray-300 text-purple-800 focus:ring-purple-800" {{ old('remember') ? 'checked' : '' }}>
+                    <label for="isHealthyChildFranch" class="my-2 ms-2.5 text-md font-medium text-black-900 dark:text-black-300">Сотрудник франчайзи ГК "Здоровый ребёнок"</label>
                 </div>
             </div>
             <div id="isHealthyChildGKDiv" class="sm:col-span-2">
                 <div class="relative mt-2 rounded-md shadow-sm items-center flex">
                     <input value="true" onchange="showHealthyChildGk(this)" name="isHealthyChildGk" id="isHealthyChildGK" type="checkbox" class="accent-indigo-600 w-4 h-4 text-indigo-800 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                    <label for="isHealthyChildGK" class="my-2 ms-2.5 text-md font-medium text-black-900 dark:text-black-300">Являюсь сотрудником ГК "Здоровый ребенок"</label>
+                    <label for="isHealthyChildGK" class="my-2 ms-2.5 text-md font-medium text-black-900 dark:text-black-300">Сотрудник ГК "Здоровый ребенок"</label>
                 </div>
             </div>
+            {{-- Для ГК здоровый ребенок --}}
             <div id="isLegalHealthyChildGKDiv" class="sm:col-span-2" style="display: none">
                 <div class="relative mt-2 rounded-md shadow-sm items-center flex">
                     <input value="true" name="isLegalHealthyChildGK" id="isLegalHealthyChildGK" type="checkbox" class="accent-indigo-600 w-4 h-4 text-indigo-800 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                    <label for="isLegalHealthyChildGK" class="my-2 ms-2.5 text-md font-medium text-black-900 dark:text-black-300">Оплата обучения осуществляется юридическим лицом</label>
+                    <label for="isLegalHealthyChildGK" class="my-2 ms-2.5 text-md font-medium text-black-900 dark:text-black-300">Оплата осуществляется юридическим лицом</label>
                 </div>
             </div>       
             <script>
@@ -79,18 +80,18 @@
                     if (event.checked) {
                         isLegalHealthyChildGKDiv.style.display = ''
                         oplataUrLicoDiv.style.display = 'none'
-                        oplataUrLicoDiv.checked = false
+                        document.getElementById('isLegal').checked = false
                         /* workPlaceDiv.style.display = '' */
                         isStudentDiv.style.display = 'none'
                         isHealthyChildFranchDiv.style.display = 'none'
-                        isStudentDiv.checked = false
+                        document.getElementById('isStudent').checked = false
                         /* isHealthyChild.checked = false */
                         workPlace.value = 'ГК "Здоровый ребенок"'
                         console.log(workPlace)
                     }
                     else {
                         isLegalHealthyChildGKDiv.style.display = 'none'
-                        oplataUrLicoDiv.style.display = ''
+                        /* oplataUrLicoDiv.style.display = '' */
                         
                         isHealthyChildFranchDiv.style.display = ''
                         /* workPlaceDiv.style.display = 'none' */
@@ -101,10 +102,11 @@
                     }
                 }
             </script> 
+            {{-- Для франчайзинга --}}
             <div id="oplataUrLicoDiv" class="sm:col-span-2" style="display: none">
                 <div class="relative mt-2 rounded-md shadow-sm items-center flex">
                     <input value="true" name="isLegalHealthyChildFranch" id="isLegal" type="checkbox" class="accent-indigo-600 w-4 h-4 text-indigo-800 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                    <label for="isLegal" class="my-2 ms-2.5 text-md font-medium text-black-900 dark:text-black-300">Оплата обучения осуществляется организацией</label>
+                    <label for="isLegal" class="my-2 ms-2.5 text-md font-medium text-black-900 dark:text-black-300">Обучение оплачивает организация</label>
                 </div>
             </div>       
             <script>
@@ -123,12 +125,12 @@
                         oplataUrLicoDiv.style.display = ''
                         workPlaceDiv.style.display = ''
                         isStudentDiv.style.display = 'none'
-                        isStudentDiv.checked = false
+                        document.getElementById('isStudent').checked = false
                         workPlace.required = true
                     }
                     else {
                         isHealthyChildGKDiv.style.display = ''
-                        isLegalHealthyChildGKDiv.style.display = ''
+                        /* isLegalHealthyChildGKDiv.style.display = '' */
                         oplataUrLicoDiv.style.display = 'none'
                         oplataUrLicoDiv.checked = false
                         workPlaceDiv.style.display = 'none'
@@ -162,7 +164,7 @@
             <div id="isStudentDiv" class="sm:col-span-2">
                 <div class="relative mt-2 rounded-md shadow-sm items-center flex">
                     <input id="isStudent" onchange="setStudent(this)" value="true" type="checkbox" name="isStudent" class="accent-indigo-600 w-4 h-4 text-indigo-800 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                    <label for="isStudent" class="my-2 ms-2.5 text-md font-medium text-black-900 dark:text-black-300">Являюсь студентом</label>
+                    <label for="isStudent" class="my-2 ms-2.5 text-md font-medium text-black-900 dark:text-black-300">Студент профильного ВУЗа</label>
                 </div>
             </div> 
             <script>
@@ -183,9 +185,9 @@
                     if (event.checked) {
                         isHealthyChildGKDiv.style.display = 'none'
                         isHealthyChildFranchDiv.style.display = 'none'
-                        isAPPCPDiv.style.display = 'none'
+                        /* isAPPCPDiv.style.display = 'none'
 
-                        isAPPCP.checked = false
+                        isAPPCP.checked = false */
                         isLegal.checked = false
                         isLegalHealthyChildGK.checked = false
 
@@ -195,7 +197,7 @@
                         studPhotoDiv.style.display = 'none'
                         isHealthyChildGKDiv.style.display = ''
                         isHealthyChildFranchDiv.style.display = ''
-                        isAPPCPDiv.style.display = ''
+                        /* isAPPCPDiv.style.display = '' */
                     }
                 }
             </script>
