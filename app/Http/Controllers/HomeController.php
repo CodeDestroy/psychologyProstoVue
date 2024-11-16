@@ -41,10 +41,19 @@ class HomeController extends Controller
         return view('about');
     }
 
-    public function documents()
+    public function offer()
     {
-        return view('legal');
+        return view('documents.offer');
     }
 
+    public function contract()
+    {
+        return view('documents.contract');
+    }
+    
+    public function agreement()
+    {
+        return view('documents.agreement');
+    }
     
 }

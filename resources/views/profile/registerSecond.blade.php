@@ -55,92 +55,156 @@
                     <label for="isHealthyChildFranch" class="my-2 ms-2.5 text-md font-medium text-black-900 dark:text-black-300">Сотрудник франчайзи ГК "Здоровый ребёнок"</label>
                 </div>
             </div>
-            <div id="isHealthyChildGKDiv" class="sm:col-span-2">
-                <div class="relative mt-2 rounded-md shadow-sm items-center flex">
-                    <input value="true" onchange="showHealthyChildGk(this)" name="isHealthyChildGk" id="isHealthyChildGK" type="checkbox" class="accent-indigo-600 w-4 h-4 text-indigo-800 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                    <label for="isHealthyChildGK" class="my-2 ms-2.5 text-md font-medium text-black-900 dark:text-black-300">Сотрудник ГК "Здоровый ребенок"</label>
-                </div>
-            </div>
-            {{-- Для ГК здоровый ребенок --}}
-            <div id="isLegalHealthyChildGKDiv" class="sm:col-span-2" style="display: none">
-                <div class="relative mt-2 rounded-md shadow-sm items-center flex">
-                    <input value="true" name="isLegalHealthyChildGK" id="isLegalHealthyChildGK" type="checkbox" class="accent-indigo-600 w-4 h-4 text-indigo-800 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                    <label for="isLegalHealthyChildGK" class="my-2 ms-2.5 text-md font-medium text-black-900 dark:text-black-300">Оплата осуществляется юридическим лицом</label>
-                </div>
-            </div>       
-            <script>
-                function showHealthyChildGk(event) {
-                    const isLegalHealthyChildGKDiv = document.getElementById('isLegalHealthyChildGKDiv')
-                    const isHealthyChildFranchDiv = document.getElementById('isHealthyChildFranchDiv')
-                    
-                    /* const isHealthyChild = document.getElementById('isHealthyChild') */
-                    const isStudentDiv = document.getElementById('isStudentDiv')
-                    const workPlace = document.getElementById('workPlace')
-                    /*  */
-                    if (event.checked) {
-                        isLegalHealthyChildGKDiv.style.display = ''
-                        oplataUrLicoDiv.style.display = 'none'
-                        document.getElementById('isLegal').checked = false
-                        /* workPlaceDiv.style.display = '' */
-                        isStudentDiv.style.display = 'none'
-                        isHealthyChildFranchDiv.style.display = 'none'
-                        document.getElementById('isStudent').checked = false
-                        /* isHealthyChild.checked = false */
-                        workPlace.value = 'ГК "Здоровый ребенок"'
-                        console.log(workPlace)
-                    }
-                    else {
-                        isLegalHealthyChildGKDiv.style.display = 'none'
-                        /* oplataUrLicoDiv.style.display = '' */
-                        
-                        isHealthyChildFranchDiv.style.display = ''
-                        /* workPlaceDiv.style.display = 'none' */
-                        isStudentDiv.style.display = ''
-                        document.getElementById('isLegalHealthyChildGK').checked = false
-                        /* isHealthyChild.checked = false */
-                        workPlace.value = ''
-                    }
-                }
-            </script> 
-            {{-- Для франчайзинга --}}
-            <div id="oplataUrLicoDiv" class="sm:col-span-2" style="display: none">
-                <div class="relative mt-2 rounded-md shadow-sm items-center flex">
-                    <input value="true" name="isLegalHealthyChildFranch" id="isLegal" type="checkbox" class="accent-indigo-600 w-4 h-4 text-indigo-800 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                    <label for="isLegal" class="my-2 ms-2.5 text-md font-medium text-black-900 dark:text-black-300">Обучение оплачивает организация</label>
-                </div>
-            </div>       
-            <script>
+            <script defer>
+                //Для франчайзинга
                 function showHealthyChildFranch(event) {
-                    const isHealthyChildGKDiv = document.getElementById('isHealthyChildGKDiv')
+                    const isHealthyChildGk = document.getElementById('isHealthyChildGk')
+                    /* const isHealthyChildGKDiv = document.getElementById('isHealthyChildGKDiv') */
                     const isLegalHealthyChildGKDiv = document.getElementById('isLegalHealthyChildGKDiv')
                     const oplataUrLicoDiv = document.getElementById('oplataUrLicoDiv')
-                    const isHealthyChildDiv = document.getElementById('isHealthyChildDiv')
-                    const isStudentDiv = document.getElementById('isStudentDiv')
+                    /* const isHealthyChildDiv = document.getElementById('isHealthyChildDiv') */
+                    const isStudent = document.getElementById('isStudent')
                     const workPlace = document.getElementById('workPlaceDiv')
-                    /* console.log(workPlace) */
                     if (event.checked) {
-                        isHealthyChildGKDiv.style.display = 'none'
-                        isLegalHealthyChildGKDiv.style.display = 'none'
+                        isHealthyChildGk.disabled = true
+                        
+                        // Удаляем для ГК
+                        isLegalHealthyChildGKDiv.addEventListener('animationend', function handleAnimationEnd() {
+                            isLegalHealthyChildGKDiv.classList.remove('hiding');
+                            oplataUrLicoDiv.classList.add('hide');
+                            isLegalHealthyChildGKDiv.removeEventListener('animationend', handleAnimationEnd);
+                        });
+
                         document.getElementById('isLegalHealthyChildGK').checked = false
-                        oplataUrLicoDiv.style.display = ''
-                        workPlaceDiv.style.display = ''
-                        isStudentDiv.style.display = 'none'
+                        
+                        //Проявляем чекбокс и лист работ
+                        oplataUrLicoDiv.classList.remove('hide');
+                        oplataUrLicoDiv.classList.add('visible');
+                        oplataUrLicoDiv.classList.remove('hiding');
+
+                        workPlaceDiv.classList.remove('hide');
+                        workPlaceDiv.classList.add('visible');
+                        workPlaceDiv.classList.remove('hiding');
+
+
+                        isStudent.disabled = true
                         document.getElementById('isStudent').checked = false
                         workPlace.required = true
                     }
                     else {
-                        isHealthyChildGKDiv.style.display = ''
-                        /* isLegalHealthyChildGKDiv.style.display = '' */
-                        oplataUrLicoDiv.style.display = 'none'
+                        isHealthyChildGk.disabled = false
                         oplataUrLicoDiv.checked = false
-                        workPlaceDiv.style.display = 'none'
-                        isStudentDiv.style.display = ''
+
+                        oplataUrLicoDiv.classList.add('hiding');
+                        oplataUrLicoDiv.classList.remove('visible');
+                        
+                        // Убираем класс `hiding` после завершения анимации
+                        oplataUrLicoDiv.addEventListener('animationend', function handleAnimationEnd() {
+                            oplataUrLicoDiv.classList.remove('hiding');
+                            oplataUrLicoDiv.classList.add('hide');
+                            oplataUrLicoDiv.removeEventListener('animationend', handleAnimationEnd);
+                        });
+
+                        workPlaceDiv.classList.add('hiding');
+                        workPlaceDiv.classList.remove('visible');
+                        
+                        // Убираем класс `hiding` после завершения анимации
+                        workPlaceDiv.addEventListener('animationend', function handleAnimationEnd() {
+                            workPlaceDiv.classList.remove('hiding');
+                            workPlaceDiv.classList.add('hide');
+                            workPlaceDiv.removeEventListener('animationend', handleAnimationEnd);
+                        });
+                        //Удаляем галку с оплаты орг
+                        document.getElementById('isLegal').checked = false
+                        
+                        isStudent.disabled = false
                         document.getElementById('workPlace').value = ''
                         workPlace.required = false
                     }
                 }
             </script>
-            <div id="workPlaceDiv" class="sm:col-span-2" style="display: none">
+            <div class="sm:col-span-2">
+                <div id="isHealthyChildGKDiv" class="relative mt-2 rounded-md shadow-sm items-center flex text-black-900 dark:text-black-300">
+                    <input value="true" onchange="showHealthyChildGk(this)" name="isHealthyChildGk" id="isHealthyChildGk" type="checkbox" class="accent-purple-800 w-4 h-4 text-indigo-800 bg-gray-100 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600">
+                    <label for="isHealthyChildGK" class="my-2 ms-2.5 text-md font-medium">Сотрудник ГК "Здоровый ребенок"</label>
+                </div>
+            </div>
+            <script defer>
+                function showHealthyChildGk(event) {
+                    const isLegalHealthyChildGKDiv = document.getElementById('isLegalHealthyChildGKDiv')
+                    const isHealthyChildFranch = document.getElementById('isHealthyChildFranch')
+                    
+                    /* const isHealthyChild = document.getElementById('isHealthyChild') */
+                    const isStudent = document.getElementById('isStudent')
+                    const workPlace = document.getElementById('workPlace')
+                    /*  */
+                    if (event.checked) {
+
+                        //Проявляем оплата юр лицом
+                        /* isLegalHealthyChildGKDiv.classList.remove('hidden'); */
+                        isLegalHealthyChildGKDiv.classList.remove('hide');
+                        isLegalHealthyChildGKDiv.classList.add('visible');
+                        isLegalHealthyChildGKDiv.classList.remove('hiding');
+                        /* setTimeout(() => {
+                            isLegalHealthyChildGKDiv.classList.add('visible');
+                        }, 200); */
+
+                        //Не может быть студентом
+                        isStudent.disabled = true
+                        isStudent.checked = false
+                        //Не может быть работником франшизы, он уже в ГК
+                        isHealthyChildFranch.disabled = true
+                        isHealthyChildFranch.checked = false
+
+                        //Место работы ГК здоров ребенок
+                        workPlace.value = 'ГК "Здоровый ребенок"'
+                        workPlace.disabled = true
+                    }
+                    else {
+
+                        //Убираем галку оплата орг ДЛЯ ГК
+                        document.getElementById('isLegalHealthyChildGK').checked = false
+
+                        //Удаляем оплата юр лицом
+                        isLegalHealthyChildGKDiv.classList.add('hiding');
+                        isLegalHealthyChildGKDiv.classList.remove('visible');
+                        
+                        isLegalHealthyChildGKDiv.addEventListener('animationend', function handleAnimationEnd() {
+                            isLegalHealthyChildGKDiv.classList.remove('hiding');
+                            isLegalHealthyChildGKDiv.classList.add('hide');
+                            isLegalHealthyChildGKDiv.removeEventListener('animationend', handleAnimationEnd);
+                        });
+
+                        //Включаем галку оплата юр лицом
+                        isHealthyChildFranch.disabled = false
+
+                        //Включаем студента
+                        isStudent.disabled = false
+
+                        /* isHealthyChild.checked = false */
+                        workPlace.value = ''
+                    }
+                }
+            
+            </script> 
+            
+            {{-- Для Франчайзи здоровый ребенок --}}
+            <div id="oplataUrLicoDiv" class="sm:col-span-2 animated hide">
+                <div class="relative mt-2 rounded-md shadow-sm items-center flex">
+                    <input value="true" name="isLegalHealthyChildFranch" id="isLegal" type="checkbox" class="accent-purple-800 w-4 h-4 text-indigo-800 bg-gray-100 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600">
+                    <label for="isLegal" class="my-2 ms-2.5 text-md font-medium text-black-900 dark:text-black-300">Обучение оплачивает организация</label>
+                </div>
+            </div>  
+
+            {{-- Для ГК --}}
+            <div id="isLegalHealthyChildGKDiv" class="sm:col-span-2 animated hide">
+                <div class="relative mt-2 rounded-md shadow-sm items-center flex">
+                    <input value="true" name="isLegalHealthyChildGK" id="isLegalHealthyChildGK" type="checkbox" class="accent-purple-800 w-4 h-4 text-indigo-800 bg-gray-100 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600">
+                    <label for="isLegalHealthyChildGK" class="my-2 ms-2.5 text-md font-medium text-black-900 dark:text-black-300">Оплата осуществляется юридическим лицом</label>
+                </div>
+            </div>         
+            
+            <div id="workPlaceDiv" class="sm:col-span-2 animated hide">
                 <label for="workPlaceSelect" class="block text-sm font-medium leading-6 text-gray-900">Выберите юридическое лицо</label>
                 <select onchange="setWorkPlace(this.options[this.selectedIndex])" id="workPlaceSelect" name="workPlaceSelect" class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     <option value="" selected>Выберите юридическое лицо</option>
@@ -163,17 +227,14 @@
             </script>
             <div id="isStudentDiv" class="sm:col-span-2">
                 <div class="relative mt-2 rounded-md shadow-sm items-center flex">
-                    <input id="isStudent" onchange="setStudent(this)" value="true" type="checkbox" name="isStudent" class="accent-indigo-600 w-4 h-4 text-indigo-800 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <input id="isStudent" onchange="setStudent(this)" value="true" type="checkbox" name="isStudent" class="accent-purple-800 w-4 h-4 text-indigo-800 bg-gray-100 border-gray-300 rounded  dark:bg-gray-700 dark:border-gray-600">
                     <label for="isStudent" class="my-2 ms-2.5 text-md font-medium text-black-900 dark:text-black-300">Студент профильного ВУЗа</label>
                 </div>
             </div> 
-            <script>
+            <script defer>
                 function setStudent(event) {
                     const studPhotoDiv = document.getElementById('studPhotoDiv')
-                    const isHealthyChildGKDiv = document.getElementById('isHealthyChildGKDiv')
-                    const isHealthyChildGk = document.getElementById('isHealthyChildGK')
-                    
-                    const isHealthyChildFranchDiv = document.getElementById('isHealthyChildFranchDiv')
+                    const isHealthyChildGk = document.getElementById('isHealthyChildGk')
                     const isHealthyChildFranch = document.getElementById('isHealthyChildFranch')
 
                     const isAPPCPDiv = document.getElementById('isAPPCPDiv')
@@ -183,27 +244,45 @@
                     const isLegalHealthyChildGK = document.getElementById('isLegalHealthyChildGK')
 
                     if (event.checked) {
-                        isHealthyChildGKDiv.style.display = 'none'
-                        isHealthyChildFranchDiv.style.display = 'none'
-                        /* isAPPCPDiv.style.display = 'none'
-
-                        isAPPCP.checked = false */
+                        
+                        //Дизейблим кнопки я сотрудник и убираем галочки
+                        isHealthyChildGk.checked = false
+                        isHealthyChildGk.disabled = true
+                        isHealthyChildFranch.checked = false
+                        isHealthyChildFranch.disabled = true
+                        
+                        //На всякий убираем галки с оплат юр лицом
                         isLegal.checked = false
                         isLegalHealthyChildGK.checked = false
 
-                        studPhotoDiv.style.display = ''
+
+                        //Показываем блок загрузки студака
+                        studPhotoDiv.classList.remove('hide');
+                        studPhotoDiv.classList.add('visible');
+                        studPhotoDiv.classList.remove('hiding');
                     }
                     else {
-                        studPhotoDiv.style.display = 'none'
-                        isHealthyChildGKDiv.style.display = ''
-                        isHealthyChildFranchDiv.style.display = ''
+
+                        //Возвращаем активность кнопкам я сотрудник
+                        isHealthyChildGk.disabled = false
+                        isHealthyChildFranch.disabled = false
+                        
+                        //Убираем блок загрузки студака
+                        studPhotoDiv.classList.add('hiding');
+                        studPhotoDiv.classList.remove('visible');
+                        
+                        studPhotoDiv.addEventListener('animationend', function handleAnimationEnd() {
+                            studPhotoDiv.classList.remove('hiding');
+                            studPhotoDiv.classList.add('hide');
+                            studPhotoDiv.removeEventListener('animationend', handleAnimationEnd);
+                        });
                         /* isAPPCPDiv.style.display = '' */
                     }
                 }
             </script>
             <div id="isAPPCPDiv" class="sm:col-span-2">
                 <div class="relative mt-2 rounded-md shadow-sm items-center flex">
-                    <input id="isAPPCP" value="true" type="checkbox" name="isAPPCP" class="accent-indigo-600 w-4 h-4 text-indigo-800 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <input id="isAPPCP" value="true" type="checkbox" name="isAPPCP" class="accent-purple-800 w-4 h-4 text-indigo-800 bg-gray-100 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600">
                     <label for="isAPPCP" class="my-2 ms-2.5 text-md font-medium text-black-900 dark:text-black-300">Являюсь членом Ассоциации педагогов, психологов, психотерапевтов</label>
                 </div>
             </div> 
@@ -258,7 +337,7 @@
                     </div>
                 </div>
             </div>        
-            <div style="display: none" class="sm:col-span-full" id='studPhotoDiv'>
+            <div class="sm:col-span-full animated hide" id='studPhotoDiv'>
                 <label for="studPhotoDiv" class="block text-sm/6 font-medium text-gray-900">Фотография или скан сутденческого билета</label>
                 <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
                     <div class="text-center">
@@ -284,6 +363,12 @@
                     <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Я согласен с условиями пользовательского соглашения</span>
                 </label>
             </div>
+            <div id="isAgreeWithPersonalDataProc" class="sm:col-span-2">
+                <div class="relative mt-2 rounded-md shadow-sm items-center flex">
+                    <input id="agreeWithPersonalDataProc" required type="checkbox" class="accent-purple-800 w-4 h-4 text-indigo-800 bg-gray-100 border-gray-300 rounded  dark:bg-gray-700 dark:border-gray-600">
+                    <label for="agreeWithPersonalDataProc" class="my-2 ms-2.5 text-md font-medium text-grey-900 dark:text-grey-300">Согласен с <a target="_blank" href="{{ route('documents.agreement') }}" class="text-indigo-600">политикой обработки персональных данных</a></label>
+                </div>
+            </div> 
         </div>
         <div class="mt-8">
             <button type="submit" class="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Подтвердить</button>
