@@ -96,6 +96,8 @@ Route::controller(App\Http\Controllers\ProfileController::class)->group(function
     
     Route::post('/settings/general/uploadSnilsScan', 'uploadSnilsScan')->name('settings.general.uploadSnilsScan');
 
+    Route::post('/settings/general/uploadStudScan', 'uploadStudScan')->name('settings.general.uploadStudScan');
+    
 
     Route::get('/profile', 'profile')->name('profile.general')->middleware(['auth', 'verified']);
     Route::post('/profile/registerSecond', 'registerSecond')->name('profile.registerSecond')->middleware(['auth', 'verified']);
