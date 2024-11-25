@@ -43,8 +43,8 @@
                 {{-- Десктоп меню --}}
                 <div class="hidden lg:flex lg:gap-x-12">
                     <a href="{{ url('/') }}" class="text-sm font-semibold leading-6 text-gray-900">Главная</a>
-                    {{-- <a href="{{ url('/about') }}" class="text-sm font-semibold leading-6 text-gray-900">О нас</a>
-                    <a href="{{ url('/education') }}" class="text-sm font-semibold leading-6 text-gray-900">Обучение</a> --}}
+                    {{-- <a href="{{ url('/about') }}" class="text-sm font-semibold leading-6 text-gray-900">О нас</a> --}}
+                    <a href="{{ route('education.index') }}" class="text-sm font-semibold leading-6 text-gray-900">Обучение</a>
                     {{-- <a href="{{ url('/contacts') }}" class="text-sm font-semibold leading-6 text-gray-900">Контакты</a> --}}
                     <a href="{{ url('/docs') }}" class="text-sm font-semibold leading-6 text-gray-900">Документы</a>
                     {{-- <button type="button" class="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500">

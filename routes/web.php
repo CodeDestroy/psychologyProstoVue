@@ -32,6 +32,12 @@ Route::get('/api/events', function (Request $request) {
                 ->orderBy('start_time')
                 ->get();
 });
+Route::controller(App\Http\Controllers\EducationController::class)->group(function () {
+    Route::get('/education', 'index')->name('education.index');
+    Route::get('/education/event/{id}', 'showEvent')->name('education.showEvent');
+    Route::get('/education/test/{id}','showTest')->name('education.showTest');
+
+})->middleware(['auth', 'verified']);
 Route::controller(App\Http\Controllers\PaymentController::class)->group(function () {
    
     Route::get('/payment/success/{sum}/{freq}', 'success')->name('payment.success');
