@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('answers', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('question_id')->constrained('questions')->cascadeOnDelete();
+            $table->string('text')->default('');
+            $table->integer('isRight')->default(0);
+            $table->integer('score')->default(1);
+            
             $table->timestamps();
         });
     }

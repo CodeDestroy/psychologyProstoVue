@@ -52,7 +52,7 @@
         </div>
         <ol class="mt-4 divide-y divide-gray-100 text-sm leading-6 lg:col-span-7 xl:col-span-8">
           <li v-for="meeting in meetings" :key="meeting.id" class="relative flex space-x-6 py-6 xl:static">
-            <a :href="'/education/event/'+meeting.id">
+            <a :href="meeting.course_id+'/event/'+meeting.id">
             <img :src="meeting.image" alt="" class="h-14 w-14 flex-none rounded-full" />
             <div class="flex-auto">
               <h3 class="pr-10 font-semibold text-gray-900 xl:pr-0">{{ meeting.name }}</h3>
@@ -106,7 +106,7 @@
 </template>
 <script setup>
 import axios from 'axios';
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import {
   CalendarIcon,
   ChevronLeftIcon,
@@ -115,6 +115,7 @@ import {
   MapPinIcon,
 } from '@heroicons/vue/20/solid';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
+import { useRouter, useRoute } from 'vue-router'
 // Массив для названий месяцев
 const monthNames = [
   'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
@@ -132,15 +133,41 @@ const days = ref([
   { date: '2021-12-28' },
   // ...
 ]);
+
 var today = new Date();
 const selectedDate = ref(null);
 const currentMonth = ref('2024-11'); // Начальный месяц для рендера календаря
+var course_id = null;
+/* getUrlQueryParams = async () => {    
+  //router is async so we wait for it to be ready
+  await router.isReady()
+  //once its ready we can access the query params
+  console.log(route.query)
+};
+onMounted(() => {
+  getUrlQueryParams()
+}); */
+const lastDigit = async (path) => {
+  // Извлекаем последнюю цифру из pathname
+  const matches = path.match(/\/(\d+)$/);
+  return matches ? matches[1] : null; // Возвращаем цифру или null, если ничего не найдено
+}
+  
 
 // Функция для загрузки встреч с сервера
 const loadMeetings = async (date) => {
   try {
-    const response = await axios.get('/api/events', { params: { date } });
-    meetings.value = response.data;
+    const last = await lastDigit(window.location.pathname)
+    if (last) {
+      course_id = last;
+      const response = await axios.get(`/api/course/${course_id}/events`, { params: { date } });
+      meetings.value = response.data;
+    }
+    else {
+      const response = await axios.get('/api/events', { params: { date } });
+      meetings.value = response.data;
+    }
+    
   } catch (error) {
     console.error('Error loading events:', error);
   }
@@ -150,7 +177,6 @@ const loadMeetings = async (date) => {
 const handleDateClick = (day) => {
   if (day.isCurrentMonth) {
     selectedDate.value = day.date;
-    console.log(selectedDate.value)
     days.value.forEach((day, index) => {
 
         if (day.date == selectedDate.value) {

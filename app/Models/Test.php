@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Tests extends Model
+class Test extends Model
 {
     //
     protected $fillable = [
@@ -17,5 +17,9 @@ class Tests extends Model
     public function events()
     {
         return $this->belongsTo(Event::class);
+    }
+    public function questions()
+    {
+        return $this->hasMany(Question::class);
     }
 }

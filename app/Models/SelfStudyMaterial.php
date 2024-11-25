@@ -4,12 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Lections extends Model
+class SelfStudyMaterial extends Model
 {
     //
     protected $fillable = [
         'event_id',
         'text',
+        'title',
+        'description',
         
     ];
 

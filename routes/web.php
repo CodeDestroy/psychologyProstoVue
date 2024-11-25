@@ -10,7 +10,9 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 }); */
 
 Auth::routes(['verify' => true]);
-
+/* Route::fallback(function () {
+    return view('errors.404');
+}); */
 Route::controller(App\Http\Controllers\HomeController::class)->group(function () {
     Route::get('/', 'index')->name('home');
     Route::get('/contacts', 'contacts')->name('contacts');
@@ -28,16 +30,29 @@ Route::controller(App\Http\Controllers\HomeController::class)->group(function ()
 
 Route::get('/api/events', function (Request $request) {
     $date = $request->query('date');
-    return Event::where('start_date', '=', $date)
+    return Event::where('start_date', '<=', $date)->where('end_date', '>=', $date)
+                ->orderBy('start_time')
+                ->get();
+});
+Route::get('/api/course/{course_id}/events', function (Request $request, $course_id) {
+    $date = $request->query('date');
+    return Event::where('start_date', '<=', $date)->where('end_date', '>=', $date)->where('course_id', $course_id)
                 ->orderBy('start_time')
                 ->get();
 });
 Route::controller(App\Http\Controllers\EducationController::class)->group(function () {
-    Route::get('/education', 'index')->name('education.index');
-    Route::get('/education/event/{id}', 'showEvent')->name('education.showEvent');
-    Route::get('/education/test/{id}','showTest')->name('education.showTest');
+    Route::get('/education', 'showCourses')->name('education.index')->middleware(['auth', 'verified']);
+    
+    Route::get('/education/course/{course_id}/', 'showCourse')->name('education.course')->middleware(['auth', 'verified', 'paid']);
 
-})->middleware(['auth', 'verified']);
+    Route::get('/education/course/{course_id}/event/{id}', 'showEvent')->name('education.showEvent')->middleware(['auth', 'verified', 'paid']);
+    Route::get('/education/course/{course_id}/test/{id}','showTest')->name('education.showTest')->middleware(['auth', 'verified', 'paid']);
+    Route::get('/education/course/{course_id}/test/{id}/startTest','startTest')->name('education.startTest')->middleware(['auth', 'verified', 'paid']);
+    Route::post('/education/course/{course_id}/test/{id}/submitTest','submitTest')->name('education.submitTest')->middleware(['auth', 'verified', 'paid']);
+    Route::get('/education/course/{course_id}/selfStudyMaterial/{id}','showSelfStudyMaterial')->name('education.showSelfStudyMaterial')->middleware(['auth', 'verified', 'paid']);/* 
+    Route::get('/education/test/{test_id}/question/{question_id}','showQuestion')->name('education.showQuestion'); */
+
+});
 Route::controller(App\Http\Controllers\PaymentController::class)->group(function () {
    
     Route::get('/payment/success/{sum}/{freq}', 'success')->name('payment.success');
