@@ -90,15 +90,15 @@ class EducationController extends Controller
             case 'selfStudyMaterial':
                 $selfStudyMaterial = SelfStudyMaterial::where(['event_id' => $id])->first();
                 
-                return redirect()->route('education.showSelfStudyMaterial', ['id' => $selfStudyMaterial->id, 'course_id' => $course_id]);
+                return redirect()->route('education.showSelfStudyMaterial', ['course_id' => $course_id, 'id' => $selfStudyMaterial->id]);
                 /* return view('education.events.lection', compact('event')); */
             case 'test':
                         
                 $test = Test::where(['event_id' => $id])->first();
-                return redirect()->route('education.showTest', ['id' => $test->id, 'course_id' => $course_id]);
+                return redirect()->route('education.showTest', ['course_id' => $course_id, 'id' => $test->id]);
             case 'vebinar':
                 $vebinar = Vebinar::where(['event_id' => $id])->first();
-                return redirect()->route('education.showVebinar', ['id' => $vebinar->id, 'course_id' => $course_id]);
+                return redirect()->route('education.showVebinar', ['course_id' => $course_id, 'id' => $vebinar->id]);
                 /* return view('errors.accessError', ['error_title' => 'Вебинар еще не начался', 'error_message' => 'Вебинар начнется 29 Ноября в 19:30 по МСК']); */
             default:
                 return view('education.events.selfStudyMaterial', compact('event'));
@@ -122,14 +122,15 @@ class EducationController extends Controller
         //Находим этот тест
         $test = Test::find($id);
         //Получаем из представления записи за сегодня
-        $testResutsToday = ($user->getAllTestTries($today)->toArray())[0];
+        $testResultsTodayArray = $user->getAllTestTries($today)->toArray();
+        $testResutsToday = !empty($testResultsTodayArray) ? $testResultsTodayArray[0] : null;
         //Получаем из представления записи за всё время
         $testResutsAll = $user->getAllTestTries()->toArray();
 
         $testResultEloquent = TestResult::where('user_id', $user->id)->orderBy('created_at', 'desc');
         
         //Получаем из таблицы общее количество попыток
-        $triesCount = count($testResultEloquent->get());
+        $triesCount = $testResultEloquent->count();
         
         //Получаем из таблицы последний результат
         $lastResult = $testResultEloquent->first();
@@ -138,12 +139,12 @@ class EducationController extends Controller
         $whyBlocked = '';
         $isBlocked = false;
 
-        if ($testResutsToday->passed === 1 ) {
+        if ($testResutsToday && $testResutsToday->passed === 1) {
             /* $whyBlocked = 'Вы прошли тест';
             $isBlocked = true; */
             $isCompleted = true;
         }
-        else if ($testResutsToday->record_count >= 5) {
+        else if ($testResutsToday && $testResutsToday->record_count >= 5) {
             $whyBlocked = 'Слишком много попыток. Прохождение теста заблокировано до завтра.';
             $isBlocked = true;
         }
