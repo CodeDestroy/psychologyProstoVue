@@ -32,17 +32,25 @@
                 <li v-for="item in items" :key="item.id" class="overflow-hidden bg-white px-4 py-4 shadow sm:rounded-md sm:px-6">
                     <a class=" py-4" href="#calendarView" @click="handleDateClick({date: '2024-12-21', isCurrentMonth: true})">
                         <p class="text-slate-400">21.12.2024 19:00 по МСК</p>
-                        <p class="text-green-500">Тема 1.4: Речевая функция: нейропсихологический и нейролингвистический аспекты</p>
+                        <p class="text-violet-500">Тема 1.4: Речевая функция: нейропсихологический и нейролингвистический аспекты</p>
                     </a>
                 </li>
-
                 <li v-for="item in items" :key="item.id" class="overflow-hidden bg-white px-4 py-4 shadow sm:rounded-md sm:px-6 text-purple-800 text-xl font-bold">
                     <p>Раздел 2. Закономерности психоречевого развития детей в онтогенезе и его нарушения</p>
                 </li>
                 <li v-for="item in items" :key="item.id" class="overflow-hidden bg-white px-4 py-4 shadow sm:rounded-md sm:px-6">
+                    <a class=" py-4" href="#calendarView" @click="handleDateClick({date: '2024-12-27', isCurrentMonth: true})">
+                        <p class="text-slate-400">27.12.2024 19:00 по МСК</p>
+                        <p class="text-green-500">Тема 2.1: Закономерности психического и речевого онтогенеза</p>
+                    </a>
+                </li>
+
+
+                <!-- 
+                <li v-for="item in items" :key="item.id" class="overflow-hidden bg-white px-4 py-4 shadow sm:rounded-md sm:px-6">
                     <p class="text-slate-400">27.12.2024</p>
                     <p>Тема 2.1: Закономерности психического и речевого онтогенеза</p>
-                </li>
+                </li> -->
                 <li v-for="item in items" :key="item.id" class="overflow-hidden bg-white px-4 py-4 shadow sm:rounded-md sm:px-6">
                     <p class="text-slate-400">10.01.2025</p>
                     <p>Тема 2.2: Особенности развития у детей речи и других когнитивных функций</p>
