@@ -39,6 +39,7 @@ createApp({
 
 import ThreeTiersWithEmphasizedTier from './components/ThreeTiersWithEmphasizedTier.vue';
 import ThreeTiersPrice from './components/ThreeTiersPrice.vue';
+import ThreeTiersPriceKochetkova from './components/ThreeTiersPriceKochetkova.vue';
 import Calendar from './components/Calendar.vue';
 import Plan from './components/Plan.vue';
 import CalendarPlan from './components/CalendarPlan.vue';
@@ -53,7 +54,10 @@ import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
 import AskQuestion from './components/AskQuestion.vue';
 import WithLargeAvatar from './components/WithLargeAvatar.vue';
+import WithLargeAvatarKochetkova from './components/WithLargeAvatarKochetkova.vue';
 import SideBySideGrid from './components/SidebySideGrid.vue';
+import Content from './components/Content.vue';
+
 
 createApp({})
 .component('ThreeTiersWithEmphasizedTier', ThreeTiersWithEmphasizedTier)
@@ -61,6 +65,10 @@ createApp({})
 
 createApp({})
 .component('ThreeTiersPrice', ThreeTiersPrice)
+.mount('#price-webinar')
+
+createApp({})
+.component('ThreeTiersPriceKochetkova', ThreeTiersPriceKochetkova)
 .mount('#price-webinar')
 
 createApp({})
@@ -113,8 +121,16 @@ createApp({})
 .mount('#with-large-avatar')
 
 createApp({})
+.component('WithLargeAvatarKochetkova', WithLargeAvatarKochetkova)
+.mount('#with-large-avatar')
+
+createApp({})
 .component('SideBySideGrid', SideBySideGrid)
 .mount('#contacts')
+
+createApp({})
+.component('Content', Content)
+.mount('#content')
 
 document.getElementById('generate-pdf')?.addEventListener('click', function () {
 /*   const { jsPDF } = window.jspdf; */
