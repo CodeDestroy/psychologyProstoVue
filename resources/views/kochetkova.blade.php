@@ -30,7 +30,7 @@
         <div class="mx-auto max-w-2xl lg:mx-0">
             <h2 class="text-3xl font-bold tracking-tight text-purple-800 sm:text-4xl">Практико-ориентированный семинар</h2>
             <p class="mt-1 text-lg leading-8 text-gray-600"><strong>6 академических часов:</strong> с 11-00 до 17-00</p>
-            <p class="mt-1 text-lg leading-8 text-gray-600">г. Воронеж, ул. Лизюкова, 24, 1 этаж, конференц-зале МЦ "Небольница" </p>
+            <p class="mt-1 text-lg leading-8 text-gray-600">г. Воронеж, ул. Лизюкова, 24, 1 этаж, конференц-зал МЦ "Небольница" </p>
         </div>
         <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
             <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
