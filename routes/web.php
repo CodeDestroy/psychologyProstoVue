@@ -24,9 +24,12 @@ Route::get('/pdf/{filename}', function ($filename) {
 //Роуты основных страниц
 Route::controller(App\Http\Controllers\HomeController::class)->group(function () {
     Route::get('/vizel', 'index')->name('vizel');
-    Route::get('/', 'nikolaeva')->name('home');
+    Route::get('/', 'kochetkova')->name('home');
     Route::get('/nikolaeva', 'nikolaeva')->name('nikolaeva');
+    Route::get('/nikolaeva/', 'nikolaeva')->name('nikolaeva');
     Route::get('/kochetkova', 'kochetkova')->name('kochetkova');
+    
+    Route::get('/kochetkova/', 'kochetkova')->name('kochetkova');
     Route::get('/contacts', 'contacts')->name('contacts');
     Route::get('/about', 'about')->name('about');
     Route::get('/docs', function (Request $request) { return redirect()->route('documents.offer'); })->name('documents');
@@ -161,7 +164,7 @@ Route::controller(App\Http\Controllers\PaymentController::class)->group(function
     Route::post('/payment/fail', 'failView')->name('payment.failView'); */
     Route::get('/payment/base/{course}/{freq}/{sum}', 'base')->name('payment.base')->middleware(['auth', 'verified']);
     Route::get('/payment/privilege/{course}/{freq}/{sum}', 'privilege')->name('payment.privilege')->middleware(['auth', 'verified']);
-    Route::get('/payment/enterprise/{course}/{freq}', 'enterprise')->name('payment.enterprise')->middleware(['auth', 'verified']);
+    Route::get('/payment/enterprise/{course}/{freq}/{sum}', 'enterprise')->name('payment.enterprise')->middleware(['auth', 'verified']);
     Route::get('/payment/students/{course}/{freq}/{price}', 'student')->name('payment.student')->middleware(['auth', 'verified']);
     Route::get('/payment/{tier}/{course}/{freq}/{price}', 'index')->name('payment.index')->middleware(['auth', 'verified']);
 });
