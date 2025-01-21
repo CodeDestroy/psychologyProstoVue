@@ -74,7 +74,7 @@ class EducationController extends Controller
                 switch ($event->type) {
                     case 'selfStudyMaterial':
                         $selfStudyMaterial = SelfStudyMaterial::where(['event_id' => $id])->first();
-                        $allTests = Event::where(['type' => 'test'])->where('id', '<', $id)
+                        $allTests = Event::where(['type' => 'test'])->where('id', '<', $id)->where('course_id', $event->course_id)
                         ->whereDate('start_date', '<', $event->start_date)
                         ->orderBy('id','asc')->get();
                         foreach ($allTests as $eventTest) {
@@ -88,7 +88,7 @@ class EducationController extends Controller
                         return redirect()->route('education.showSelfStudyMaterial', ['id' => $selfStudyMaterial->id, 'course_id' => $course_id]);
                         /* return view('education.events.lection', compact('event')); */
                     case 'test':
-                        $allTests = Event::where(['type' => 'test'])->where('id', '<', $id)
+                        $allTests = Event::where(['type' => 'test'])->where('id', '<', $id)->where('course_id', $event->course_id)
                         ->whereDate('start_date', '<', $event->start_date)
                         ->orderBy('id','asc')->get();
                         foreach ($allTests as $eventTest) {
@@ -117,7 +117,7 @@ class EducationController extends Controller
         switch ($event->type) {
             case 'selfStudyMaterial':
                 $selfStudyMaterial = SelfStudyMaterial::where(['event_id' => $id])->first();
-                $allTests = Event::where(['type' => 'test'])->where('id', '<', $id)
+                $allTests = Event::where(['type' => 'test'])->where('id', '<', $id)->where('course_id', $event->course_id)
                 ->whereDate('start_date', '<', $event->start_date)
                 ->orderBy('id','asc')->get();
                 
@@ -132,7 +132,7 @@ class EducationController extends Controller
                 return redirect()->route('education.showSelfStudyMaterial', ['id' => $selfStudyMaterial->id, 'course_id' => $course_id]);
                 /* return view('education.events.lection', compact('event')); */
             case 'test':
-                $allTests = Event::where(['type' => 'test'])->where('id', '<', $id)
+                $allTests = Event::where(['type' => 'test'])->where('id', '<', $id)->where('course_id', $event->course_id)
                 ->whereDate('start_date', '<', $event->start_date)
                 ->orderBy('id','asc')->get();
                 foreach ($allTests as $eventTest) {
