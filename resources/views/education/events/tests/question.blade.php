@@ -19,40 +19,60 @@
                 </div> --}}
                 {{-- <p class="font-bold">{{ $question['text'] }}</p> --}}
                 <legend class="text-xl font-semibold leading-6 text-gray-900 my-2">{{ $question['text'] }}</legend>
-                @foreach ($question['answers'] as $answer)
-                    <div class="relative flex items-start">
-                        <div class="flex items-center mb-4">
-                            <input 
-                                id="small{{ $answer['id'] }}" type="radio" 
-                                name="answers[{{ $question['id'] }}]" 
-                                value="{{ $answer['id'] }}"   
-                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 outline-none accent-purple-800 dark:bg-gray-700 dark:border-gray-600">
-                            <label for="small{{ $answer['id'] }}" class="ms-2 text-md text-gray-600">{{ $answer['text'] }}</label>
+                @switch ($question['type'])
+                  @case('one')
+                    @foreach ($question['answers'] as $answer)
+                        <div class="relative flex items-start">
+                            <div class="flex items-center mb-4">
+                                <input 
+                                    id="small{{ $answer['id'] }}" type="radio" 
+                                    name="answers[{{ $question['id'] }}]" 
+                                    value="{{ $answer['id'] }}"   
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 outline-none accent-purple-800 dark:bg-gray-700 dark:border-gray-600">
+                                <label for="small{{ $answer['id'] }}" class="ms-2 text-md text-gray-600">{{ $answer['text'] }}</label>
+                            </div>
+                            {{-- <div class="flex h-6 items-center ">
+                                <input 
+                                    id="small" 
+                                    aria-describedby="small-description" type="radio" 
+                                    name="answers[{{ $question['id'] }}]" 
+                                    value="{{ $answer['id'] }}"  
+                                    class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                                >
+                            </div>
+                            <div class="ml-3 text-sm leading-6">
+                                <label for="small" class="font-medium text-gray-900"> {{ $answer['text'] }}</label>
+                                <span id="small-description" class="text-gray-500">ГОЙДАААГОЙДАААГОЙДАААГОЙДАААГОЙДАААГОЙДАААМ</span>
+                            </div> --}}
                         </div>
-                        {{-- <div class="flex h-6 items-center ">
-                            <input 
-                                id="small" 
-                                aria-describedby="small-description" type="radio" 
-                                name="answers[{{ $question['id'] }}]" 
-                                value="{{ $answer['id'] }}"  
-                                class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                            >
-                        </div>
-                        <div class="ml-3 text-sm leading-6">
-                            <label for="small" class="font-medium text-gray-900"> {{ $answer['text'] }}</label>
-                            <span id="small-description" class="text-gray-500">ГОЙДАААГОЙДАААГОЙДАААГОЙДАААГОЙДАААГОЙДАААМ</span>
+                        {{-- <div>
+                            <label>
+                                <input 
+                                    type="radio" 
+                                    name="answers[{{ $question['id'] }}]" 
+                                    value="{{ $answer['id'] }}">
+                                {{ $answer['text'] }}
+                            </label>
                         </div> --}}
-                    </div>
-                    {{-- <div>
-                        <label>
-                            <input 
-                                type="radio" 
-                                name="answers[{{ $question['id'] }}]" 
-                                value="{{ $answer['id'] }}">
-                            {{ $answer['text'] }}
-                        </label>
-                    </div> --}}
-                @endforeach
+                    @endforeach
+                    @break;
+                  @case('text')
+                    @foreach ($question['answers'] as $answer)
+                      <div class="relative flex items-start">
+                        <div class="flex items-center mb-4">
+                            <textarea 
+                                id="small{{ $answer['id'] }}"  
+                                name="answers[{{ $question['id'] }}]"  rows="5" cols="33"
+                                style="border-color: blueviolet; border-style: inset; border-width: 1px; min-width: 300px; border-radius: 6px;"
+                                {{-- value="{{ $answer['id'] }}"    --}}
+                            >
+                            </textarea>
+                            {{-- <label for="small{{ $answer['id'] }}" class="ms-2 text-md text-gray-600">{{ $answer['text'] }}</label> --}}
+                        </div>
+                      </div>
+                    @endforeach
+                    @break;
+                  @endswitch
             </div>
         @endforeach
         <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Отправить</button>
