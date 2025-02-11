@@ -28,7 +28,9 @@ Route::get('/sys/getId', function (Request $request) {
 //Роуты основных страниц
 Route::controller(App\Http\Controllers\HomeController::class)->group(function () {
     Route::get('/vizel', 'index')->name('vizel');
-    Route::get('/', 'kochetkova')->name('home');
+    Route::get('/', 'kudryashova_17022025')->name('home');
+    Route::get('/kudryashova_17022025', 'kudryashova_17022025')->name('kudryashova_17022025');
+    Route::get('/kudryashova_25022025', 'kudryashova_25022025')->name('kudryashova_25022025');
     Route::get('/nikolaeva', 'nikolaeva')->name('nikolaeva');
     Route::get('/nikolaeva/', 'nikolaeva')->name('nikolaeva');
     Route::get('/kochetkova', 'kochetkova')->name('kochetkova');
