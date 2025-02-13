@@ -392,6 +392,37 @@ class ProfileController extends Controller
         return redirect()->route('settings.documents');
     }
 
+    public function uploadDiplomPrefPerepodScan(Request $request)
+    {
+        $user = User::find($request->user()->id);
+
+        $validator = Validator::make($request->all(), [
+            'diplomProfPerepodPage' => 'nullable|image|mimes:jpeg,png,jpg|max:10240',
+        ]);
+    
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        // Сохранение фотографий и формирование массива с путями к ним
+        if ($request->hasFile('diplomProfPerepodPage')) {
+            $photo = $request->file('diplomProfPerepodPage');
+            // Сохранение фото в папку "passport_photos"
+            $path = $photo->store('diplom_photos', options: 'public');
+            UserDocument::updateOrCreate(
+                ['user_id' => $user->id, 'type' => 'diplom_profperepod'],
+                ['file' => $path]
+            );
+            /* UserDocument::create([
+                'user_id' => $user->id, // ID регистрации курса
+                'type' => 'passport_2_page',
+                'file' => $path,
+            ]); */
+        }
+    
+        return redirect()->route('settings.documents');
+    }
+
     public function uploadPassport2PageScan(Request $request)
     {
         $user = User::find($request->user()->id);
