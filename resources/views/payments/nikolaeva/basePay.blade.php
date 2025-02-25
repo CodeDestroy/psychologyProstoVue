@@ -6,7 +6,7 @@
     @if ($freq == 100)
         <div class="flex justify-center items-center bg-gray-100" style="height: 80vh">
             <div class="w-full max-w-md p-6 bg-white rounded-lg shadow-md">
-                <h2 class="text-2xl font-semibold text-gray-800 text-center mb-4">Вебинар 19.01.2025 <br>10-00 - 13-00</h2>
+                <h2 class="text-2xl font-semibold text-gray-800 text-center mb-4">Видеозапись вебинара 19.01.2025 <br>10-00 - 13-00</h2>
                 <p class="text-xl font-semibold text-gray-700 text-center mb-4">д.б.н., профессор Е.И. Николаева</p>
                 <p class="text-md font-semibold text-gray-700 text-center mb-4">"Что такое созревание мозга и какие условия его обеспечивают"</p>
                 
@@ -19,7 +19,7 @@
         
                 <!-- Robokassa Payment Button -->
                 <div class="text-center flex justify-center">
-                    <script type="text/javascript" src="https://auth.robokassa.ru/Merchant/PaymentForm/FormSS.js?EncodedInvoiceId=M7TYJjPo7kGPTK66LFf76g"></script>
+                    <script type="text/javascript" src="https://auth.robokassa.ru/Merchant/PaymentForm/FormSS.js?EncodedInvoiceId=jiCYDy6ut0uvgmr8_PL3iQ"></script>
                 </div>
                 
                 <!-- Back Button -->
