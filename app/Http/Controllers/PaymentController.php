@@ -186,9 +186,9 @@ class PaymentController extends Controller
             $actualPrice = 0;
         if ($isStudent)
             switch ($courseRegistration->course_id) {
-                /* case 3:
-                    $actualPrice = 4000;
-                    break; */
+                case 3:
+                    $actualPrice = 1500;
+                    break;
                 case 4:
                     $actualPrice = 4000;
                     break;
@@ -285,7 +285,7 @@ class PaymentController extends Controller
                     else if ($courseRegistration->isHealthyChildGk || $courseRegistration->isAPPCP || $courseRegistration->isHealthyChild || $courseRegistration->isHealthyChildPartner || $courseRegistration->isHealthyChildFranch )  
                         return redirect('/payment/enterprise/' . $course . '/' . $freq . '/1');
                     else */
-                        return redirect('/payment/base/' . $course . '/' . $freq . '/2000');
+                        return redirect('/payment/base/' . $course . '/' . $freq . '/1500');
                 case 'tier-privilege2':
                     if ( $courseRegistration->isStudent)
                         return redirect('/payment/students/' . $course . '/' . $freq . '/4000');

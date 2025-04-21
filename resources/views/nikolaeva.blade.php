@@ -29,7 +29,7 @@
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <div class="mx-auto max-w-2xl lg:mx-0">
             <h2 class="text-3xl font-bold tracking-tight text-purple-800 sm:text-4xl">Авторская работа о созревании мозга</h2>
-            <p class="mt-1 text-lg leading-8 text-gray-600"><strong>4 академических часа:</strong> с 10-00 до 13-00</p>
+            <p class="mt-1 text-lg leading-8 text-gray-600"><strong>4 академических часа</strong></p>
         </div>
         <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
             <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
